@@ -67,32 +67,4 @@ def prepare_draft(prompt: str, reply: bool = False) -> None:
 
 
 if __name__ == "__main__":
-    import base64
-
-    api_keys = load_api_keys("api_keys.json")
-
-    # prompt = """
-    # Ik moet een mail stuur om de twee jarige onderhouding van mijn warmtepomp te plannen. Dus ik moet ook vragen voor die afspraak.
-    # Liever maandag, woensdag of vrijdags. YOU HAVE TO ASK IF IT'S OKAY TO MAKE THE afsprak before planning date.
-    # Toevoeg ook katrien_vdh@hotmail.com in cc.
-    # De bedrijf email is contact@cv-service.be.
-    # Onze adres is 36 Mechelsevest, bus 0001, Leuven 3000.
-    # Geef ook mijn phone number me.
-    # """
-
-    # prompt = """
-    # Aan euroluc@telenet.be, wil ik antwoorden: bedankt voor u mail. Toevoeg een twee paragraph geschiedenis van Nederlands. De subject is Aanvraag planning tweejaarlijks
-    # """
-
-    # prepare_draft(prompt, reply=True)
-
-    start_recording()
-
-    prepare_content_draft(
-        "Use the information provided to write an email",
-        "DAVID.VANLAER@mandat.belfius.be",
-        "Bevestiging van jullie afspraak",
-        reply=True,
-    )
-
-    delete_recording()
+    pass
