@@ -12,8 +12,14 @@ from typing import Optional
 
 
 def prepare_content_draft(
-    prompt: str, recipient_mail: str, subject: Optional[str] = None, reply: bool = False
+    prompt: str,
+    recipient_mail: str,
+    subject: Optional[str] = None,
+    reply: bool = False,
+    audio_file: str = "data/live_recording.mp3",
 ):
+    api_keys = load_api_keys("api_keys.json")
+
     if reply:
         if not subject:
             raise Exception("Subject must be provided for a reply")
@@ -30,24 +36,25 @@ def prepare_content_draft(
             prompt += f"{formatted_message}\n"
 
     response = generate_email_content_from_audio(
-        "data/live_recording.mp3", api_keys.get("GOOGLE_API_KEY"), text_prompt=prompt
+        audio_file, api_keys.get("GOOGLE_API_KEY"), text_prompt=prompt
     )
 
-    if subject:
+    if subject and reply:
         gmail_create_draft_reply(
             original_subject=subject,
             recipient_email=recipient_mail,
             content=response.get("content"),
         )
     else:
-        gmail_create_draft_reply(
-            original_subject=response.get("subject"),
-            recipient_email=recipient_mail,
+        gmail_create_draft(
+            subject=response.get("subject"),
+            to=recipient_mail,
             content=response.get("content"),
         )
 
 
 def prepare_draft(prompt: str, reply: bool = False) -> None:
+    api_keys = load_api_keys()
     response = generate_email_draft(prompt, api_key=api_keys.get("GOOGLE_API_KEY"))
 
     to = response.get("to")

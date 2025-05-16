@@ -5,3 +5,5 @@ data/*
 client_info.txt
 .venv/*
 local_main.py
+*.pyc
+.DS_Store
